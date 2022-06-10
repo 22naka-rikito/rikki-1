@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>アカウント作成</title>
+<link href="css/commons.css" rel="stylesheet">
+</head>
+<body>
+	<div class="header">
+		<h1 class="site_logo">キッチントライ注文票</h1>
+		<div>
+			<button class="logout_btn" type="button"
+				onclick="location.href='/logout'">ログアウト</button>
+		</div>
+	</div>
+
+	<div class="insert">
+		<div class="discription">
+			<p>
+				登録情報を入力してください（<span class="required"></span>は必須です）
+			</p>
+		</div>
+
+		<div class="form_body">
+			<p class="error" th:text="${msg}"></p>
+
+			<form action="order" method="post" th:object="${order}">
+				<fieldset class="label-130">
+					<div>
+						<label class="required">弁当</label>
+						<select th:field="*{bentoId}" class="base-text">
+							<option th:each="bento : ${bento}" th:value="${bento.id}"
+								th:text="${bento.name}"></option>
+						</select>
+					</div>
+
+					<div>
+						<label class="required">オプション</label>
+						<select th:field="*{optionId}" class="base-text">
+							<option th:each="options : ${options}" th:value="${options.id}"
+								th:text="${options.name}"></option>
+						</select>
+					</div>
+
+					<div>
+						<label class="required">米</label>
+						<select th:field="*{riceId}" class="base-text">
+							<option th:each="rice : ${rice}" th:value="${rice.id}"
+								th:text="${rice.type}"></option>
+						</select>
+					</div>
+				</fieldset>
+				<div class="btns">
+					<button type="button" onclick="openModal()" class="basic_btn">注文</button>
+					<input type="button" onclick="location.href='/back'" value="戻る"
+						class="cancel_btn">
+				</div>
+				<div id="modal">
+					<p class="modal_message">注文しますか？</p>
+					<div class="btns">
+						<button type="submit" name="decision" class="basic_btn">注文</button>
+						<button type="button" onclick="closeModal()" class="cancel_btn">キャンセル</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div id="fadeLayer"></div>
+	<script src="./js/commons.js"></script>
+</body>
+</html>

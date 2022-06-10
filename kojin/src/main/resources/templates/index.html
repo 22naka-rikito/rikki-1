@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログイン</title>
+<link href="css/commons.css" rel="stylesheet">
+</head>
+<body class="login_body">
+	<form action="index" th:object="${index}" method="POST">
+		<div class="header">
+			<h1 class="site_logo">キッチントライ注文票</h1>
+			<button class="logout_btn" type="submit" name="create_user">新規登録</button>
+		</div>
+
+		<div class="login_form">
+			<img src="./images/logo.png" class="login_logo">
+			<p class="error" th:text="${msg}"></p>
+			<fieldset>
+				<div class="cp_iptxt">
+					<input class="base_input" type="text" name="loginId" value="admin"
+						placeholder="ID">
+					<div class="error" th:each="error: ${#fields.errors('loginId')}">
+						[[ ${error} ]]</div>
+				</div>
+				<div>
+					<input class="base_input" type="password" name="pass" value="admin"
+						placeholder="PASS">
+					<div class="error" th:each="error: ${#fields.errors('pass')}">
+						[[ ${error} ]]</div>
+				</div>
+			</fieldset>
+			<button class="logout_btn" type="submit" name="login" value="login">ログイン</button>
+		</div>
+	</form>
+</body>
+</html>

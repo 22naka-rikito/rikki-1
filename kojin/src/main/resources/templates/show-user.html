@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>メニュー</title>
+<link href="/css/commons.css" rel="stylesheet">
+</head>
+<body>
+	<div id="app">
+		<div class="header">
+			<h1 class="site_logo">キッチントライ注文票</h1>
+			<div th:if=${session.user}>
+				<p class="user_name" th:text="|${session.user.name}|"></p>
+			</div>
+			<div>
+				<button class="logout_btn" type="button"
+					onclick="location.href='/logout'">ログアウト</button>
+			</div>
+		</div>
+
+		<table>
+			<thead>
+				<tr>
+					<th>名前</th>
+					<th>ログインID</th>
+					<th>パスワード</th>
+					<th>削除</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="u : ${userList}">
+					<td>[[ ${u.name} ]]</td>
+					<td>[[ ${u.loginId} ]]</td>
+					<td>[[ ${u.password} ]]</td>
+					<td><a class="detail_btn" th:href="|/delete?id=${u.id} |">削除</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="btns">
+			<input type="submit" onclick="location.href='/back'" value="戻る" class="cancel_btn">
+		</div>
+	</div>
+</body>
+</html>

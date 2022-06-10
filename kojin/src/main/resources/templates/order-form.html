@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>メニュー</title>
+<link href="/css/commons.css" rel="stylesheet">
+</head>
+<body>
+	<div id="app">
+		<div class="header">
+			<h1 class="site_logo">キッチントライ注文票</h1>
+			<div th:if=${session.user}>
+				<p class="user_name" th:text="|${session.user.name}|"></p>
+			</div>
+			<div>
+				<button class="logout_btn" type="button"
+					th:if="${session.user.authority == 1}"
+					onclick="location.href='/show'">アカウント一覧</button>
+				<button class="logout_btn" type="button"
+					th:if="${session.user.authority == 2}"
+					onclick="location.href='/edit'">アカウント編集</button>
+
+				<button class="logout_btn" type="button"
+					onclick="location.href='/logout'">ログアウト</button>
+			</div>
+		</div>
+		
+		<div th:text="'今日の注文担当は、' + ${session.orderUser.name} + 'です'">テキスト</div>
+		
+		<table>
+			<thead>
+				<tr>
+					<th>名前</th>
+					<th>弁当名</th>
+					<th>オプション</th>
+					<th>米</th>
+					<th>値段</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${orderList}">
+					<td>[[ ${order.userName} ]]</td>
+					<td>[[ ${order.bentoName} ]]</td>
+					<td>[[ ${order.optionName} ]]</td>
+					<td>[[ ${order.type} ]]</td>
+					<td>[[ ${order.price} ]]</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="btns">
+			<input type="button" th:if="${session.user.authority == 2}"
+				onclick="location.href='/order'" value="注文" class="basic_btn">
+		</div>
+	</div>
+</body>
+</html>

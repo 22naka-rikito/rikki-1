@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>アカウント作成</title>
+<link href="css/commons.css" rel="stylesheet">
+</head>
+<body>
+	<div class="header">
+		<h1 class="site_logo">キッチントライ注文票</h1>
+	</div>
+
+	<div class="insert">
+		<div class="discription">
+			<p>
+				登録情報を入力してください（<span class="required"></span>は必須です）
+			</p>
+		</div>
+
+		<div class="form_body">
+			<p class="error" th:text="${msg}"></p>
+
+			<form action="create" method="post" th:object="${create_user}">
+				<fieldset class="label-130">
+					<div>
+						<label class="required">名前</label>
+						<input type="text" th:field="*{name}" class="base-text">
+						<span class="error" th:each="error: ${#fields.errors('name')}">
+							[[ ${error} ]]
+						</span>
+					</div>
+					<div>
+						<label class="required">ログインID</label>
+						<input type="text" th:field="*{loginId}" class="base-text">
+						<span class="error" th:each="error: ${#fields.errors('loginId')}"> 
+							[[ ${error} ]]
+						</span>
+					</div>
+					<div>
+						<label class="required">パスワード</label>
+						<input type="text" th:field="*{password}" class="base-text">
+						<span class="error" th:each="error: ${#fields.errors('password')}">
+							[[ ${error} ]]
+						</span>
+					</div>
+				</fieldset>
+				<div class="btns">
+					<button type="button" onclick="openModal()" class="basic_btn">登録</button>
+					<input type="button" onclick="location.href='/'" value="戻る" class="cancel_btn">	
+				</div>
+				<div id="modal">
+					<p class="modal_message">登録しますか？</p>
+					<div class="btns">
+						<button type="submit" name="create" class="basic_btn">登録</button>
+						<button type="button" onclick="closeModal()" class="cancel_btn">キャンセル</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div id="fadeLayer"></div>
+	<script src="./js/commons.js"></script>
+</body>
+</html>
